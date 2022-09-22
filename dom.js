@@ -13,3 +13,5 @@ items[0].style.color  = 'green';
 items[0].style.fontWeight = 'bold';
 
 
+ok = document.getElementsByTagName('li');
+ok[4].textContent = 'Hello 5';
