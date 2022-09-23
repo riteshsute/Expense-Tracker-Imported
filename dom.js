@@ -15,3 +15,11 @@ items[0].style.fontWeight = 'bold';
 
 let ok = document.getElementsByTagName('li');
 ok[4].textContent = 'Hello 5';
+
+
+addingid = document.getElementsByClassName('list-group-item');
+addingid[2].style.backgroundColor = "green";
+
+for( let i = 0; i < addingid.length; i++){
+    addingid[i].style.fontWeight = 'bold';
+}
