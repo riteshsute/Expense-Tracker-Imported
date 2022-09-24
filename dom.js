@@ -95,33 +95,47 @@ itemlist.firstChild.textContent = 'HEllo';
 
 let form = document.getElementById('addForm');
 let itemList = document.getElementById('items');
+let filter = document.getElementById('filter');
 
 
 form.addEventListener('submit', addItem);
 
 itemList.addEventListener('click', removeItem);
 
+filter.addEventListener('keyup', filterItems);
+
 function addItem(e){
   e.preventDefault();
 
   let newItem = document.getElementById('item').value;
+  let newDis = document.getElementById('discription').value;
 
   let li = document.createElement('li');
+  let li1 = document.createElement('li');
 
   li.className = 'list-group-item';
+  li1.className = 'list-group-item';
   
   li.appendChild(document.createTextNode(newItem));
+  li1.appendChild(document.createTextNode(newDis));
 
   let deleteBtn = document.createElement('button');
+  let deleteBtn1 = document.createElement('button');
 
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  deleteBtn1.className = 'btn btn-danger btn-sm float-right delete';
 
   deleteBtn.appendChild(document.createTextNode('X'));
+  deleteBtn1.appendChild(document.createTextNode('X'));
 
   li.appendChild(deleteBtn);
-
+  li1.appendChild(deleteBtn);
+  
   itemList.appendChild(li);
+  itemList.appendChild(li1);
 }
+
+
 
 function removeItem(e){
     if(e.target.classList.contains('delete')){
@@ -132,3 +146,17 @@ function removeItem(e){
     }
   }
   
+  function filterItems(e){
+    var text = e.target.value.toLowerCase();
+    // Get lis
+    var items = itemList.getElementsByTagName('li');
+    // Convert to an array
+    Array.from(items).forEach(function(item){
+      var itemName = item.firstChild.textContent;
+      if(itemName.toLowerCase().indexOf(text) != -1){
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
