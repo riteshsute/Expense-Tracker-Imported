@@ -5,8 +5,8 @@
             <label> Choose Expense Amount:</label>
             <input id="amount" type="number" name="Amount">
             <label> Choose Discription:</label>
-            <input id="discription" type="text" name="type">
-            <label for="expenses">Choose a option:</label>
+            <input id="discription" type="text" name="Discription">
+            <label for="expenses"> Choose a option:</label>
                 <select name="expenses" id="options" >
                     <optgroup label="Choose">
                     <option value="Movie">Movie</option>
@@ -22,16 +22,16 @@
             <script>
                 function saveTolocal(event) {
                 event.preventDefault();
-                const name = event.target.Amount.value;
-                const expense = event.target.type.value;
+                const Amount = event.target.Amount.value;
+                const expense = event.target.Discription.value;
                 const option = event.target.expenses.value;
-                localStorage.setItem('Amount', name);
-                localStorage.setItem('Expense Type', expense);
-                localStorage.setItem('option', option)
-            
+                // localStorage.setItem('Amount', Amount);
+                // localStorage.setItem('ExpenseDiscription', expense);
+                // localStorage.setItem('option', option)
+
 
             const obj = {
-                    name,
+                    Amount,
                     expense,
                     option
                 }
@@ -52,23 +52,40 @@
             })
 
             function showNewUserOnScreen(user){
-                document.getElementById('amount').value = '';
-                document.getElementById('discription').value = '';
-                document.getElementById('options').value = '';
 
-                if(localStorage.getItem(user.amount) !== null){
-                    removeUserFromScreen(user.amount)
-                }
-                
                 const parentNode = document.getElementById('listOfUsers');
-                const childHTML = `<li id=${user.expense}> ${user.name} - ${user.type}
+                const childHTML = `<li id=${user.expense}> ${user.Amount} - ${user.expense} - ${user.option}
                                         <button onclick=deleteUser('${user.expense}')> Delete User </button>
-                                        <button onclick=editUserDetails('${user.expense}','${user.name}','${user.type}')>Edit User </button>
+                                        <button onclick=editUserDetails('${user.Amount}','${user.expense}','${user.option}')>Edit User </button>
                                     </li>`
 
                 parentNode.innerHTML = parentNode.innerHTML + childHTML;
             }    
 
-            </script>
+            function editUserDetails(Amount, Discription, option){
+
+                document.getElementById('amount').value = Amount;
+                document.getElementById('discription').value = Discription;
+                document.getElementById('options').value = option;
+
+                deleteUser(Discription)
+            }
+
+            function deleteUser(Discription){
+                console.log(Discription)
+                localStorage.removeItem(Discription);
+                removeUserFromScreen(Discription);
+
+            }
+
+            function removeUserFromScreen(Discription){
+                const parentNode = document.getElementById('listOfUsers');
+                const childNodeToBeDeleted = document.getElementById(Discription);
+                if(childNodeToBeDeleted) {
+                    parentNode.removeChild(childNodeToBeDeleted)
+                }
+            }
+
+        </script>
     </body>
 </html>
