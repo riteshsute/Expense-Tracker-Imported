@@ -30,7 +30,7 @@
                     phonenumber
                 }
 
-                axios.post("https://crudcrud.com/api/b09a67d1c26b474dbdc776216fda78bc/bookingData", obj)
+                axios.post("https://crudcrud.com/api/fa877c98dfee4de2ad224c8d28a8bf91/bookingData", obj)
                 .then((response) => {
                     showNewUserOnScreen(response.data)
                     console.log(response)
@@ -39,20 +39,31 @@
                     console.log(err)
                 })
                 
-                // localStorage.setItem(obj.email, JSON.stringify(obj))
-                // showNewUserOnScreen(obj)
+                 localStorage.setItem(obj.email, JSON.stringify(obj))
+                 
             }
 
             window.addEventListener("DOMContentLoaded", () => {
-                const localStorageObj = localStorage;
-                const localstoragekeys  = Object.keys(localStorageObj)
+                axios.get("https://crudcrud.com/api/fa877c98dfee4de2ad224c8d28a8bf91/bookingData")
+                .then((response) => {
+                    console.log(response)
 
-                for(var i =0; i< localstoragekeys.length; i++){
-                    const key = localstoragekeys[i]
-                    const userDetailsString = localStorageObj[key];
-                    const userDetailsObj = JSON.parse(userDetailsString);
-                    showNewUserOnScreen(userDetailsObj)
-                }
+                    for(var i=0; i< response.data.length; i++){
+                        showNewUserOnScreen(response.data[i])
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                // const localStorageObj = localStorage;
+                // const localstoragekeys  = Object.keys(localStorageObj)
+
+                // for(var i =0; i< localstoragekeys.length; i++){
+                //     const key = localstoragekeys[i]
+                //     const userDetailsString = localStorageObj[key];
+                //     const userDetailsObj = JSON.parse(userDetailsString);
+                //     showNewUserOnScreen(userDetailsObj)
+                // }
             })
 
             function showNewUserOnScreen(user){
