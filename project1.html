@@ -39,31 +39,58 @@
                     expense,
                     option
                 }
-                axios.post("https://crudcrud.com/api/02cfbaa10459404da15d08aefee73e43/expenseData", obj)
-                .then((response) => {
-                    showNewUserOnScreen(response.data)
-                    console.log(response)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+
+                async function uploadPost() {
+                    try {
+                        const response =  await axios.post("https://crudcrud.com/api/83b6e794349449e0a42fe79fdf5934a7/expenseData", obj)
+                        showNewUserOnScreen(response.data)
+                        console.log(response)
+                    } catch (err) {
+                        console.log(err)
+                    }
+                }
+                uploadPost()
+                
+                // axios.post("https://crudcrud.com/api/a22032c1762e47f4ab865d217aea6320/expenseData", obj)
+                // .then((response) => {
+                //     showNewUserOnScreen(response.data)
+                //     console.log(response)
+                // })
+                // .catch((err) => {
+                //     console.log(err)
+                // })
 
                 // localStorage.setItem(obj.expense, JSON.stringify(obj));
                 // showNewUserOnScreen(obj)
             }
 
             window.addEventListener("DOMContentLoaded", () => {
-                axios.get("https://crudcrud.com/api/02cfbaa10459404da15d08aefee73e43/expenseData")
-                .then((res) => {
-                    console.log(res)
+                async function getPosts() {
+                    try {
+                        const res = await axios.get("https://crudcrud.com/api/83b6e794349449e0a42fe79fdf5934a7/expenseData")
+                        console.log(res)
 
-                    for(var i=0; i< res.data.length; i++){
+                        for(var i=0; i< res.data.length; i++){
                         showNewUserOnScreen(res.data[i])
-                    }
-                })
-                .catch((error) => {
+                    } 
+                } catch (error) {
                     console.log(error)
-                })
+            }
+        }
+
+        getPosts()
+                // axios.get("https://crudcrud.com/api/a22032c1762e47f4ab865d217aea6320/expenseData")
+
+                // .then((res) => {
+                //     console.log(res)
+
+                //     for(var i=0; i< res.data.length; i++){
+                //         showNewUserOnScreen(res.data[i])
+                //     }
+                // })
+                // .catch((error) => {
+                //     console.log(error)
+                // })
                 // const localStorageObj = localStorage;
                 // const localstoragekeys  = Object.keys(localStorageObj)
 
@@ -95,19 +122,29 @@
                 deleteUser(userId)
             }
 
-            function deleteUser(userId){
-                axios.delete(`https://crudcrud.com/api/02cfbaa10459404da15d08aefee73e43/expenseData/${userId}`)
-                .then((response) => {
-                    removeUserFromScreen(userId)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            
+            async function deleteUser(userId){
+                try {
+                const resdelete = await axios.delete(`https://crudcrud.com/api/83b6e794349449e0a42fe79fdf5934a7/expenseData/${userId}`)
+                removeUserFromScreen(userId)
+                } catch(error) {
+                    console.log(error)
+                }
+            }
+            deleteUser()
+                // axios.delete(`https://crudcrud.com/api/83b6e794349449e0a42fe79fdf5934a7/expenseData/${userId}`)
+
+                // .then((response) => {
+                //     removeUserFromScreen(userId)
+                // })
+                // .catch((err) => {
+                //     console.log(err)
+                // })
                 // console.log(Discription)
                 // localStorage.removeItem(Discription);
                 // removeUserFromScreen(Discription);
 
-            }
+            
 
             function removeUserFromScreen(userId){
                 const parentNode = document.getElementById('listOfUsers');
