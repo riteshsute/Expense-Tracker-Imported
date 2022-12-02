@@ -1,7 +1,7 @@
 const http = require('http');
 
 const server = http.createServer((req, res)=>{
-   res.write("Ritesh sute")
+   res.write("Ritesh")
    res.end()
 });
 
