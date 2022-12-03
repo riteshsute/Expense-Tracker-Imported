@@ -18,6 +18,7 @@ const requestHandler = (req, res) => {
            return res.end()
         })
      }
+     
      else if (url === "/message" && method === "POST"){
            const body = [];
            req.on('data', (chunk) => {
@@ -49,4 +50,11 @@ const requestHandler = (req, res) => {
     }
 }
 
-module.exports = requestHandler;
+// module.exports = requestHandler;
+module.exports = {
+    handler:requestHandler,
+    someText:'some hard coded text'
+};
+
+// module.exports.handler = requestHandler;
+// module.exports.someText = "some hard coded text"
