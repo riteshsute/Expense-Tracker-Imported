@@ -4,43 +4,24 @@ const express = require('express');
 
 const app = express();
 
-const bodyParser = require('body-parser')
+const adminRoutes = require('./routes/admin');
+
+const shopRoutes  = require('./routes/shop');
+
+const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use('/admin', adminRoutes);
+app.use('/shop', shopRoutes);
+
+app.use((req, res, next) => {
+    res.status(404).send('<h1>Page Not Found</h1>');
+})
 // app.use('/', (req, res, next) => {
 //     console.log('in the middleware!');
 //     next();
 // });
-
-app.use('/add-product', (req, res, next) => {
-    // const value = 10
-    res.send('<form action="/product" method="post"><input type="text" name="title"><button type="submit">Add Product</form>');
-    // res.send('{key1: value}');
-    // res.send( { key1: value } );
- 
-});
-
-app.use('/size', (req, res, next) => {
-    // const value = 10
-    res.send('<form action="/size" method="post"><input type="number" name="size"><button type="submit">Add Size</form>');
-    // res.send('{key1: value}');
-    // res.send( { key1: value } );
-});
-
-app.post('/product', (req, res, next) => {
-    console.log(req.body);
-    res.redirect('/'); 
-})
-
-app.post('/size', (req, res, next) => {
-    console.log(req.body);
-    res.redirect('/');
-})
-
-app.use('/', (req, res, next) => {
-    res.send('<h1> This is "Main" Page </h1>');
-});
 
 // app.use((req, res, next) => {
 //     // const value = 10
